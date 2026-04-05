@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Jikkou Tutorials on Jikkou</title><link>https://www.jikkou.io/docs/tutorials/</link><description>Recent content in Jikkou Tutorials on Jikkou</description><generator>Hugo</generator><language>en</language><atom:link href="https://www.jikkou.io/docs/tutorials/index.xml" rel="self" type="application/rss+xml"/><item><title>Jikkou Getting Started</title><link>https://www.jikkou.io/docs/tutorials/get_started/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/tutorials/get_started/</guid><description>&lt;p>This document will guide you through setting up Jikkou in a few minutes and managing your first resources
+with Jikkou.&lt;/p>
+&lt;h2 id="prerequisites">Prerequisites&lt;/h2>
+&lt;p>The following prerequisites are required for a successful and properly use of Jikkou.&lt;/p>
+&lt;p>Make sure the following is installed:&lt;/p>
+&lt;ul>
+&lt;li>An Apache Kafka cluster.
+&lt;ul>
+&lt;li>Using Docker, &lt;a href="https://docs.docker.com/compose/">Docker Compose&lt;/a> is the easiest way to use it.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Java 25 (not required when using the binary version).&lt;/li>
+&lt;/ul>
+&lt;h2 id="start-your-local-apache-kafka-cluster">Start your local Apache Kafka Cluster&lt;/h2>
+&lt;p>You must have access to an Apache Kafka cluster for using Jikkou.
+Most of the time, the latest version of Jikkou is always built for working with the most recent version of Apache Kafka.&lt;/p></description></item></channel></rss>

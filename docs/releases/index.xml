@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Releases on Jikkou</title><link>https://www.jikkou.io/docs/releases/</link><description>Recent content in Releases on Jikkou</description><generator>Hugo</generator><language>en</language><atom:link href="https://www.jikkou.io/docs/releases/index.xml" rel="self" type="application/rss+xml"/><item><title>Release v0.37.0</title><link>https://www.jikkou.io/docs/releases/release-v0.37.0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/releases/release-v0.37.0/</guid><description>&lt;h2 id="-introducing-jikkou-0370">🚀 Introducing Jikkou 0.37.0&lt;/h2>
+&lt;p>We&amp;rsquo;re pleased to announce &lt;a href="https://github.com/streamthoughts/jikkou/releases/tag/v0.37.0">Jikkou 0.37.0&lt;/a>.&lt;/p>
+&lt;p>This release tackles real pain points reported by the community — from managing multiple Kafka environments in a single config, to fixing broken Schema Registry workflows. Here&amp;rsquo;s the overview:&lt;/p>
+&lt;ul>
+&lt;li>🆕 &lt;strong>Multiple provider instances&lt;/strong> — manage prod, staging, and dev from one configuration&lt;/li>
+&lt;li>🔄 New &lt;strong>&lt;code>replace&lt;/code>&lt;/strong> command for full resource recreation&lt;/li>
+&lt;li>🛡️ Schema Registry overhaul: &lt;strong>subject modes&lt;/strong>, &lt;strong>failover&lt;/strong>, &lt;strong>regex validation&lt;/strong>, and more&lt;/li>
+&lt;li>⚙️ &lt;strong>KIP-980&lt;/strong>: create Kafka connectors in STOPPED or PAUSED state&lt;/li>
+&lt;li>📦 &lt;strong>Directories&lt;/strong> as input for &lt;code>--values-files&lt;/code>&lt;/li>
+&lt;li>📑 &lt;strong>Jinja template file locations&lt;/strong> for reusable templates&lt;/li>
+&lt;li>📐 All resource schemas promoted to &lt;strong>v1&lt;/strong> API version&lt;/li>
+&lt;li>🔧 Java 25 migration and REST client modernization&lt;/li>
+&lt;/ul>
+&lt;p>To install, check out the &lt;a href="https://www.jikkou.io/docs/install/">installation guide&lt;/a>.
+For the full changelog, see the &lt;a href="https://github.com/streamthoughts/jikkou/releases/tag/v0.37.0">GitHub release page&lt;/a>.&lt;/p></description></item><item><title>Release v0.36.0</title><link>https://www.jikkou.io/docs/releases/release-v0.36.0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/releases/release-v0.36.0/</guid><description>&lt;h2 id="-introducing-jikkou-0360">🚀 Introducing Jikkou 0.36.0&lt;/h2>
+&lt;p>We’re excited to announce the release of
+&lt;a href="https://github.com/streamthoughts/jikkou/releases/tag/v0.36.0">Jikkou 0.36.0&lt;/a>! 🎉&lt;/p>
+&lt;p>This release brings &lt;strong>major new features&lt;/strong> to make Jikkou more powerful, flexible, and GitOps-friendly than ever before:&lt;/p>
+&lt;ul>
+&lt;li>🆕 New resource for managing &lt;strong>AWS Glue Schemas&lt;/strong>&lt;/li>
+&lt;li>🛡️ New resource for defining &lt;strong>ValidatingResourcePolicy&lt;/strong>&lt;/li>
+&lt;li>🔎 New selector based on &lt;strong>Google Common Expression Language&lt;/strong>&lt;/li>
+&lt;li>📦 New concept of &lt;strong>Resource Repositories&lt;/strong>&lt;/li>
+&lt;li>⚙️ Enhanced Kafka &lt;strong>actions&lt;/strong>&lt;/li>
+&lt;li>🔄 Evolved provider configuration system&lt;/li>
+&lt;/ul>
+&lt;p>To install the new version, check out the &lt;a href="https://www.jikkou.io/docs/install/">installation guide&lt;/a>.&lt;br>
+For detailed release notes, see the &lt;a href="https://github.com/streamthoughts/jikkou/releases/tag/v0.36.0">GitHub page&lt;/a>.&lt;/p></description></item><item><title>Release v0.34.0</title><link>https://www.jikkou.io/docs/releases/release-v0.34.0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/releases/release-v0.34.0/</guid><description>&lt;h2 id="introducing-jikkou-0340">Introducing Jikkou 0.34.0&lt;/h2>
+&lt;p>We&amp;rsquo;re excited to unveil the latest release of
+Jikkou &lt;a href="https://github.com/streamthoughts/jikkou/releases/tag/v0.34.0">0.34.0&lt;/a>. 🎉&lt;/p>
+&lt;p>To install the new version, please visit the &lt;a href="https://www.jikkou.io/docs/install/">installation guide&lt;/a>. For detailed
+release notes, check out the &lt;a href="https://github.com/streamthoughts/jikkou/releases/tag/v0.34.0">GitHub page&lt;/a>.&lt;/p>
+&lt;h3 id="whats-new-in-jikkou-0340">What&amp;rsquo;s New in Jikkou 0.34.0?&lt;/h3>
+&lt;ul>
+&lt;li>Enhanced Aiven provider with support for Kafka topics.&lt;/li>
+&lt;li>Added SSL support for Kafka Connect and Schema Registry&lt;/li>
+&lt;li>Introduced dynamic connection for Kafka Connect clusters&lt;/li>
+&lt;/ul>
+&lt;p>Below is a summary of these new features with examples.&lt;/p>
+&lt;h2 id="topic-aiven-for-apache-kafka">Topic Aiven for Apache Kafka&lt;/h2>
+&lt;p>Jikkou 0.34.0 adds a new &lt;code>KafkaTopic&lt;/code> kind
+that can be used to manage kafka Topics directly though the &lt;a href="https://aiven.io/">Aiven&lt;/a> API.&lt;/p></description></item><item><title>Release v0.33.0</title><link>https://www.jikkou.io/docs/releases/release-v0.33.0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/releases/release-v0.33.0/</guid><description>&lt;h2 id="introducing-jikkou-0330">Introducing Jikkou 0.33.0&lt;/h2>
+&lt;p>We&amp;rsquo;re excited to unveil the latest release of
+Jikkou &lt;a href="https://github.com/streamthoughts/jikkou/releases/tag/v0.33.0">0.33.0&lt;/a>. 🎉&lt;/p>
+&lt;p>To install the new version, please visit the &lt;a href="https://www.jikkou.io/docs/install/">installation guide&lt;/a>. For detailed
+release notes, check out the &lt;a href="https://github.com/streamthoughts/jikkou/releases/tag/v0.33.0">GitHub page&lt;/a>.&lt;/p>
+&lt;h3 id="whats-new-in-jikkou-0330">What&amp;rsquo;s New in Jikkou 0.33.0?&lt;/h3>
+&lt;ul>
+&lt;li>Enhanced resource change format.&lt;/li>
+&lt;li>Added support for the patch command.&lt;/li>
+&lt;li>Introduced the new &lt;code>--status&lt;/code> option for &lt;code>KafkaTopic&lt;/code> resources.&lt;/li>
+&lt;li>Exported offset-lag to the status of &lt;code>KafkaConsumerGroup&lt;/code> resources.&lt;/li>
+&lt;/ul>
+&lt;p>Below is a summary of these new features with examples.&lt;/p></description></item><item><title>Release v0.32.0</title><link>https://www.jikkou.io/docs/releases/release-v0.32.0/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/releases/release-v0.32.0/</guid><description>&lt;h2 id="jikkou-0320-moving-beyond-apache-kafka-introducing-new-features-extension-providers-actions-etc">Jikkou 0.32.0: Moving Beyond Apache Kafka. Introducing new features: Extension Providers, Actions, etc.!&lt;/h2>
+&lt;p>I’m thrilled to announce the release of Jikkou &lt;a href="https://github.com/streamthoughts/jikkou/releases/tag/v0.32.0">0.32.0&lt;/a>
+which packs two major features: &lt;strong>External Extension Providers&lt;/strong> and &lt;strong>Actions&lt;/strong>. 🙂&lt;/p>
+&lt;h3 id="highlights-whats-new-in-jikkou-0320">Highlights: What’s new in Jikkou 0.32.0?&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>New &lt;strong>External Extension Provider&lt;/strong> mechanism to extend Jikkou features.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>New extension type &lt;strong>Action&lt;/strong> to execute specific operations against resources.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>New action for resetting consumer group offsets.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>New action for restarting connector and tasks for Kafka Connect.&lt;/p></description></item></channel></rss>

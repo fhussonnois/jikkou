@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Extensions on Jikkou</title><link>https://www.jikkou.io/tags/extensions/</link><description>Recent content in Extensions on Jikkou</description><generator>Hugo</generator><language>en</language><atom:link href="https://www.jikkou.io/tags/extensions/index.xml" rel="self" type="application/rss+xml"/><item><title>Jikkou Reporters</title><link>https://www.jikkou.io/docs/concepts/reporters/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/concepts/reporters/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>&lt;strong>&lt;em>Reporters&lt;/em>&lt;/strong> can be used to report changes applied by Jikkou to a third-party system.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="configuration">Configuration&lt;/h2>
+&lt;p>Jikkou allows you to configure multiple reporters as follows:&lt;/p>
+&lt;pre tabindex="0">&lt;code class="language-hocon" data-lang="hocon">jikkou {
+ # The list of reporters to execute
+ reporters: [
+ {
+ # Custom name for the reporter
+ name = &amp;#34;&amp;#34;
+ # Simple or fully qualified class name of the transformation extension.
+ type = &amp;#34;&amp;#34;
+ config = {
+ # Configuration properties for this reporter
+ }
+ }
+ ]
+}
+&lt;/code>&lt;/pre>
+
+&lt;div class="alert alert-info" role="alert">
+&lt;h4 class="alert-heading">Tips&lt;/h4>
+
+ The &lt;code>config&lt;/code> object passed to a &lt;em>reporter&lt;/em> will fallback on the top-level &lt;code>jikkou&lt;/code> config.
+This allows you to globally declare some configuration settings.
+
+&lt;/div>
+
+&lt;h3 id="built-in-implementations">Built-in implementations&lt;/h3>
+&lt;p>Jikkou packs with some built-in &lt;code>ChangeReporter&lt;/code> implementations:&lt;/p></description></item><item><title>Jikkou Actions</title><link>https://www.jikkou.io/docs/concepts/actions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/concepts/actions/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>&lt;strong>&lt;em>Actions&lt;/em>&lt;/strong> allow a user to execute a specific and one-shot operation on resources.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="available-actions-cli">Available Actions (CLI)&lt;/h2>
+&lt;p>You can list all the available actions using the Jikkou CLI command:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">jikkou api-extensions list --category&lt;span class="o">=&lt;/span>action &lt;span class="o">[&lt;/span>-kinds &amp;lt;a resource kind to filter returned results&amp;gt;&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="execution-actions-cli">Execution Actions (CLI)&lt;/h2>
+&lt;p>You can execute a specific extension using the Jikkou CLI command:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">jikkou action &amp;lt;ACTION_NAME&amp;gt; execute &lt;span class="o">[&lt;/span>&amp;lt;options&amp;gt;&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Validations</title><link>https://www.jikkou.io/docs/providers/aiven/validations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/aiven/validations/</guid><description>&lt;p>Jikkou ships with the following built-in &lt;em>validations&lt;/em>:&lt;/p>
+&lt;p>&lt;em>No validation&lt;/em>&lt;/p></description></item><item><title>Validations</title><link>https://www.jikkou.io/docs/providers/aws/validations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/aws/validations/</guid><description>&lt;p>Jikkou ships with the following built-in &lt;em>validations&lt;/em>:&lt;/p>
+&lt;p>&lt;em>No validation&lt;/em>&lt;/p></description></item><item><title>Validations</title><link>https://www.jikkou.io/docs/providers/kafka-connect/validations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/kafka-connect/validations/</guid><description>&lt;p>Jikkou ships with the following built-in &lt;em>validations&lt;/em>:&lt;/p></description></item><item><title>Validations</title><link>https://www.jikkou.io/docs/providers/kafka/validations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/kafka/validations/</guid><description>&lt;p>Jikkou ships with the following built-in &lt;em>validations&lt;/em>:&lt;/p>
+&lt;h2 id="topics">Topics&lt;/h2>
+&lt;h3 id="noduplicatetopicsallowedvalidation">&lt;code>NoDuplicateTopicsAllowedValidation&lt;/code>&lt;/h3>
+&lt;p>(&lt;em>auto registered&lt;/em>)&lt;/p>
+&lt;h3 id="topicconfigkeysvalidation">&lt;code>TopicConfigKeysValidation&lt;/code>&lt;/h3>
+&lt;p>(&lt;em>auto registered&lt;/em>)&lt;/p>
+&lt;pre tabindex="0">&lt;code class="language-hocon" data-lang="hocon">type = io.streamthoughts.jikkou.kafka.validation.TopicConfigKeysValidation
+&lt;/code>&lt;/pre>&lt;p>The &lt;code>TopicConfigKeysValidation&lt;/code> allows checking if the specified topic configs are all valid.&lt;/p>
+&lt;h3 id="topicminnumpartitions">&lt;code>TopicMinNumPartitions&lt;/code>&lt;/h3>
+&lt;pre tabindex="0">&lt;code class="language-hocon" data-lang="hocon">type = io.streamthoughts.jikkou.kafka.validation.TopicMinNumPartitionsValidation
+&lt;/code>&lt;/pre>&lt;p>The &lt;code>TopicMinNumPartitions&lt;/code> allows checking if the specified number of partitions for a topic is not less than the minimum required.&lt;/p>
+&lt;p>&lt;strong>Configuration&lt;/strong>&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Name&lt;/th>
+ &lt;th>Type&lt;/th>
+ &lt;th>Description&lt;/th>
+ &lt;th>Default&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;code>topicMinNumPartitions&lt;/code>&lt;/td>
+ &lt;td>Int&lt;/td>
+ &lt;td>Minimum number of partitions allowed&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h3 id="topicmaxnumpartitions">&lt;code>TopicMaxNumPartitions&lt;/code>&lt;/h3>
+&lt;pre tabindex="0">&lt;code class="language-hocon" data-lang="hocon">type = io.streamthoughts.jikkou.kafka.validation.TopicMaxNumPartitions
+&lt;/code>&lt;/pre>&lt;p>The &lt;code>TopicMaxNumPartitions&lt;/code> allows checking if the number of partitions for a topic is not greater than the maximum configured.&lt;/p></description></item><item><title>Validations</title><link>https://www.jikkou.io/docs/providers/schema-registry/validations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/schema-registry/validations/</guid><description>&lt;p>Jikkou ships with the following built-in &lt;em>validations&lt;/em>:&lt;/p>
+&lt;h2 id="subject">Subject&lt;/h2>
+&lt;h3 id="schemacompatibilityvalidation">&lt;code>SchemaCompatibilityValidation&lt;/code>&lt;/h3>
+&lt;pre tabindex="0">&lt;code class="language-hocon" data-lang="hocon">type = io.streamthoughts.jikkou.schema.registry.validation.SchemaCompatibilityValidation
+&lt;/code>&lt;/pre>&lt;p>The &lt;code>SchemaCompatibilityValidation&lt;/code> allows testing the compatibility of the schema with the latest
+version already registered in the Schema Registry using the provided compatibility-level.&lt;/p>
+&lt;h3 id="avroschemavalidation">&lt;code>AvroSchemaValidation&lt;/code>&lt;/h3>
+&lt;p>The &lt;code>AvroSchemaValidation&lt;/code> allows checking if the specified Avro schema matches some specific avro schema definition
+rules;&lt;/p>
+&lt;pre tabindex="0">&lt;code class="language-hocon" data-lang="hocon">type = io.streamthoughts.jikkou.schema.registry.validation.AvroSchemaValidation
+&lt;/code>&lt;/pre>&lt;p>&lt;strong>Configuration&lt;/strong>&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Name&lt;/th>
+ &lt;th>Type&lt;/th>
+ &lt;th>Description&lt;/th>
+ &lt;th>Default&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;code>fieldsMustHaveDoc&lt;/code>&lt;/td>
+ &lt;td>Boolean&lt;/td>
+ &lt;td>Verify that all record fields have a &lt;code>doc&lt;/code> property&lt;/td>
+ &lt;td>&lt;code>false&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>fieldsMustBeNullable&lt;/code>&lt;/td>
+ &lt;td>Boolean&lt;/td>
+ &lt;td>Verify that all record fields are nullable&lt;/td>
+ &lt;td>&lt;code>false&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>fieldsMustBeOptional&lt;/code>&lt;/td>
+ &lt;td>Boolean&lt;/td>
+ &lt;td>Verify that all record fields are optional&lt;/td>
+ &lt;td>&lt;code>false&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table></description></item></channel></rss>

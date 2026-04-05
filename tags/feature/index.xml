@@ -1,0 +1,815 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Feature on Jikkou</title><link>https://www.jikkou.io/tags/feature/</link><description>Recent content in Feature on Jikkou</description><generator>Hugo</generator><language>en</language><atom:link href="https://www.jikkou.io/tags/feature/index.xml" rel="self" type="application/rss+xml"/><item><title>Jikkou Selectors</title><link>https://www.jikkou.io/docs/concepts/selectors/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/concepts/selectors/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>&lt;strong>Selectors&lt;/strong> allow you to include or exclude resource objects when returned or reconciled by Jikkou.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="overview">Overview&lt;/h2>
+&lt;p>Selectors filter which resources Jikkou operates on. They are passed via the &lt;code>--selector&lt;/code> (or &lt;code>-s&lt;/code>) CLI option and
+can be used with any command that accepts resources, including &lt;code>get&lt;/code>, &lt;code>apply&lt;/code>, &lt;code>create&lt;/code>, &lt;code>update&lt;/code>, &lt;code>delete&lt;/code>, &lt;code>diff&lt;/code>,
+&lt;code>validate&lt;/code>, and &lt;code>prepare&lt;/code>.&lt;/p>
+&lt;p>You can specify multiple selectors by repeating the &lt;code>--selector&lt;/code> flag, and control how they are combined using the
+&lt;code>--selector-match&lt;/code> option.&lt;/p></description></item><item><title>Jikkou Transformations</title><link>https://www.jikkou.io/docs/concepts/transformations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/concepts/transformations/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>&lt;strong>&lt;em>Transformations&lt;/em>&lt;/strong> are applied to inbound resources. &lt;em>Transformations&lt;/em> are used to transform, enrich, or filter
+resource entities
+before they are validated and thus before the reconciliation process is executed on them.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="available-transformations">Available Transformations&lt;/h2>
+&lt;p>You can list all the available transformations using the Jikkou CLI command:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">jikkou extensions list --type&lt;span class="o">=&lt;/span>Transformation &lt;span class="o">[&lt;/span>-kinds &amp;lt;a resource kind to filter returned results&amp;gt;&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="transformation-chain">Transformation chain&lt;/h2>
+&lt;p>When using Jikkou CLI, you can configure a &lt;em>transformation chain&lt;/em> that will be applied to every resource.
+This chain consists of multiple transformations, each designed to handle different types of resources. Jikkou ensures
+that a transformation is executed only for the resource types it supports. In cases where a resource is not
+accepted by a transformation, it is passed to the next transformation in the chain.
+This process continues until a suitable transformation is found or until all transformations have been attempted.&lt;/p></description></item><item><title>Jikkou Validations</title><link>https://www.jikkou.io/docs/concepts/validations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/concepts/validations/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>&lt;em>&lt;strong>Validations&lt;/strong>&lt;/em> are applied to inbound resources to ensure that the resource entities adhere to specific rules or
+constraints.
+These validations are carried out after the execution of the transformation chain and before the reconciliation process
+takes place.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="available-validations">Available Validations&lt;/h2>
+&lt;p>You can list all the available validations using the Jikkou CLI command:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">jikkou api-extensions list --category&lt;span class="o">=&lt;/span>validation &lt;span class="o">[&lt;/span>--kinds &amp;lt;a resource kind to filter returned results&amp;gt;&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="validation-chain">Validation chain&lt;/h2>
+&lt;p>When using Jikkou CLI, you can configure a &lt;em>validation chain&lt;/em> that will be applied to every resource.
+This chain consists of multiple validations, each designed to handle different types of resources. Jikkou ensures
+that a validation is executed only for the resource types it supports. In cases where a resource is not
+accepted by a validation, it is passed to the next validation in the chain.
+This process continues until a suitable validation is found or until all validations have been attempted.&lt;/p></description></item><item><title>Jikkou Templates</title><link>https://www.jikkou.io/docs/concepts/template/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/concepts/template/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>&lt;em>Template&lt;/em> helps you to dynamically define &lt;em>resource definition files&lt;/em> from external data.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="template-engine">Template Engine&lt;/h2>
+&lt;p>Jikkou provides a simple templating mechanism based-on &lt;a href="https://github.com/HubSpot/jinjava">Jinjava&lt;/a>, a Jinja template
+engine for Java.&lt;/p>
+&lt;p>Read the official documentation of &lt;a href="https://jinja.palletsprojects.com/en/3.1.x/templates/#base-template">Jinja&lt;/a> to learn
+more about the syntax and semantics of the template engine.&lt;/p>
+&lt;h2 id="how-does-it-work-">How Does It Work ?&lt;/h2>
+&lt;p>Jikkou performs the rendering of your template in two phases:&lt;/p>
+&lt;ol>
+&lt;li>First, an initial rendering is performed using only the &lt;code>values&lt;/code> and &lt;code>labels&lt;/code> passed through the command-lines
+arguments.
+&lt;ul>
+&lt;li>Thus, it is perfectly OK if your resource file is not initially a valid YAML file.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Then, a second and final rendering is performed after parsing the YAML resource file using the additional &lt;code>values&lt;/code>
+and &lt;code>labels&lt;/code> as defined into the YAML resource file.
+&lt;ul>
+&lt;li>Therefore, it&amp;rsquo;s important that your resource file is converted into a valid YAML file after the first rendering.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+
+&lt;figure class="center">
+ &lt;img src="./jikkou-template-how-it-work.svg" width="80%"/> 
+&lt;/figure>
+
+
+
+&lt;div class="alert alert-warning" role="alert">
+&lt;h4 class="alert-heading">Important&lt;/h4>
+
+ You should use &lt;code>{% raw %}...{% endraw %}&lt;/code> tags to ensure the variables defined into the &lt;code>template&lt;/code> are not be
+interpreted during the first rendering.
+
+&lt;/div>
+
+&lt;h2 id="variables">Variables&lt;/h2>
+&lt;p>Jikkou defines a number of top-level variables that are passed to the template engine.&lt;/p></description></item><item><title>Jikkou Collectors</title><link>https://www.jikkou.io/docs/concepts/collector/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/concepts/collector/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>&lt;em>&lt;strong>Collectors&lt;/strong>&lt;/em> are used to collect and describe all entities that exist into your system for a
+specific resource type.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="available-collectors">Available Collectors&lt;/h2>
+&lt;p>You can list all the available collectors using the Jikkou CLI command:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">jikkou extensions list --type&lt;span class="o">=&lt;/span>Collector &lt;span class="o">[&lt;/span>-kinds &amp;lt;a resource kind to filter returned results&amp;gt;&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Jikkou Controllers</title><link>https://www.jikkou.io/docs/concepts/controller/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/concepts/controller/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>&lt;em>&lt;strong>Controllers&lt;/strong>&lt;/em> are used to compute and apply changes required to reconcile resources into a managed
+system.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="available-controllers">Available Controllers&lt;/h2>
+&lt;p>You can list all the available controllers using the Jikkou CLI command:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">jikkou extensions list --type&lt;span class="o">=&lt;/span>Controller &lt;span class="o">[&lt;/span>-kinds &amp;lt;a resource kind to filter returned results&amp;gt;&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>ACL for Aiven Apache Kafka®</title><link>https://www.jikkou.io/docs/providers/aiven/resources/kafka-topic-acl/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/aiven/resources/kafka-topic-acl/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>The &lt;code>KafkaTopicAclEntry&lt;/code> resources are used to manage the Access Control Lists in Aiven for Apache Kafka®. A
+&lt;code>KafkaTopicAclEntry&lt;/code> resource defines the permission to be granted to a user for one or more kafka topics.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="kafkatopicaclentry">&lt;code>KafkaTopicAclEntry&lt;/code>&lt;/h2>
+&lt;h3 id="specification">Specification&lt;/h3>
+&lt;p>Here is the &lt;em>resource definition file&lt;/em> for defining a &lt;code>KafkaTopicAclEntry&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;kafka.aiven.io/v1beta1&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The api version (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;KafkaTopicAclEntry&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The resource kind (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">annotations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">permission: &amp;lt;&amp;gt; # The permission. Accepted values are&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">READ, WRITE, READWRITE, ADMIN&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">username&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The username&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">topic&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Topic name or glob pattern&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="example">Example&lt;/h3>
+&lt;p>Here is a simple example that shows how to define a single ACL entry using
+the &lt;code>KafkaTopicAclEntry&lt;/code> resource type.&lt;/p></description></item><item><title>Kafka Brokers</title><link>https://www.jikkou.io/docs/providers/kafka/resources/brokers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/kafka/resources/brokers/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>This section describes the resource definition format for &lt;code>kafkabrokers&lt;/code> entities, which can be used to define the
+brokers you plan to manage on a specific Kafka cluster.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="listing-kafkabroker">Listing &lt;code>KafkaBroker&lt;/code>&lt;/h2>
+&lt;p>You can retrieve the state of Kafka Consumer Groups using the &lt;code>jikkou get kafkabrokers&lt;/code> (or &lt;code>jikkou get kb&lt;/code>) command.&lt;/p>
+&lt;h3 id="usage">Usage&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Usage:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Get all &lt;span class="s1">&amp;#39;KafkaBroker&amp;#39;&lt;/span> resources.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">jikkou get kafkabrokers &lt;span class="o">[&lt;/span>-hV&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>--default-configs&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>--dynamic-broker-configs&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">[&lt;/span>--list&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>--static-broker-configs&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">[&lt;/span>--logger-level&lt;span class="o">=&lt;/span>&amp;lt;level&amp;gt;&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>-o&lt;span class="o">=&lt;/span>&amp;lt;format&amp;gt;&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">[&lt;/span>-s&lt;span class="o">=&lt;/span>&amp;lt;expressions&amp;gt;&lt;span class="o">]&lt;/span>...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">DESCRIPTION:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Use jikkou get kafkabrokers when you want to describe the state of all
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">resources of &lt;span class="nb">type&lt;/span> &lt;span class="s1">&amp;#39;KafkaBroker&amp;#39;&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">OPTIONS:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --default-configs Describe built-in default configuration &lt;span class="k">for&lt;/span> configs
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> that have a default value.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --dynamic-broker-configs
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Describe dynamic configs that are configured as
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> default &lt;span class="k">for&lt;/span> all brokers or &lt;span class="k">for&lt;/span> specific broker in
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> the cluster.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -h, --help Show this &lt;span class="nb">help&lt;/span> message and exit.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --list Get resources as ResourceListObject.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --logger-level&lt;span class="o">=&lt;/span>&amp;lt;level&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Specify the log level verbosity to be used &lt;span class="k">while&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> running a command.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Valid level values are: TRACE, DEBUG, INFO, WARN,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ERROR.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> For example, &lt;span class="sb">`&lt;/span>--logger-level&lt;span class="o">=&lt;/span>INFO&lt;span class="sb">`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -o, --output&lt;span class="o">=&lt;/span>&amp;lt;format&amp;gt; Prints the output in the specified format. Allowed
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> values: json, yaml &lt;span class="o">(&lt;/span>default yaml&lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -s, --selector&lt;span class="o">=&lt;/span>&amp;lt;expressions&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> The selector expression used &lt;span class="k">for&lt;/span> including or
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> excluding resources.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --static-broker-configs
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Describe static configs provided as broker properties
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> at start up &lt;span class="o">(&lt;/span>e.g. server.properties file&lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -V, --version Print version information and exit.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>(The output from your current Jikkou version may be different from the above example.)&lt;/p></description></item><item><title>Kafka Consumer Groups</title><link>https://www.jikkou.io/docs/providers/kafka/resources/consumer_groups/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/kafka/resources/consumer_groups/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>This section describes the resource definition format for &lt;code>KafkaConsumerGroup&lt;/code> entities, which can be used to define the
+consumer groups you plan to manage on a specific Kafka cluster.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="listing-kafkaconsumergroup">Listing &lt;code>KafkaConsumerGroup&lt;/code>&lt;/h2>
+&lt;p>You can retrieve the state of Kafka Consumer Groups using the &lt;code>jikkou get kafkaconsumergroups&lt;/code> (or &lt;code>jikkou get kcg&lt;/code>) command.&lt;/p>
+&lt;h3 id="usage">Usage&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ jikkou get kafkaconsumergroups --help
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Usage:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Get all &lt;span class="s1">&amp;#39;KafkaConsumerGroup&amp;#39;&lt;/span> resources.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">jikkou get kafkaconsumergroups &lt;span class="o">[&lt;/span>-hV&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>--list&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>--offsets&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">[&lt;/span>--logger-level&lt;span class="o">=&lt;/span>&amp;lt;level&amp;gt;&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>-o&lt;span class="o">=&lt;/span>&amp;lt;format&amp;gt;&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">[&lt;/span>--in-states&lt;span class="o">=&lt;/span>PARAM&lt;span class="o">]&lt;/span>... &lt;span class="o">[&lt;/span>-s&lt;span class="o">=&lt;/span>&amp;lt;expressions&amp;gt;&lt;span class="o">]&lt;/span>...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">DESCRIPTION:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Use jikkou get kafkaconsumergroups when you want to describe the state of all
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">resources of &lt;span class="nb">type&lt;/span> &lt;span class="s1">&amp;#39;KafkaConsumerGroup&amp;#39;&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">OPTIONS:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -h, --help Show this &lt;span class="nb">help&lt;/span> message and exit.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --in-states&lt;span class="o">=&lt;/span>PARAM If states is set, only groups in these states will be
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> returned. Otherwise, all groups are returned. This
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> operation is supported by brokers with version
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 2.6.0 or later
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --list Get resources as ResourceListObject.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --logger-level&lt;span class="o">=&lt;/span>&amp;lt;level&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Specify the log level verbosity to be used &lt;span class="k">while&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> running a command.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Valid level values are: TRACE, DEBUG, INFO, WARN,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ERROR.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> For example, &lt;span class="sb">`&lt;/span>--logger-level&lt;span class="o">=&lt;/span>INFO
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -o, --output&lt;span class="o">=&lt;/span>&amp;lt;format&amp;gt; Prints the output in the specified format. Allowed
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> values: json, yaml &lt;span class="o">(&lt;/span>default yaml&lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --offsets Specify whether consumer group offsets should be
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> described.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -s, --selector&lt;span class="o">=&lt;/span>&amp;lt;expressions&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> The selector expression used &lt;span class="k">for&lt;/span> including or
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> excluding resources.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -V, --version Print version information and &lt;span class="nb">exit&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>(The output from your current Jikkou version may be different from the above example.)&lt;/p></description></item><item><title>KafkaConnectors</title><link>https://www.jikkou.io/docs/providers/kafka-connect/resources/connector/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/kafka-connect/resources/connector/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>This section describes the resource definition format for &lt;code>KafkaConnector&lt;/code> entities, which can be used to define the
+configuration and status of connectors you plan to create and manage on specific Kafka Connect clusters.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="definition-format-of-kafkaconnector">Definition Format of &lt;code>KafkaConnector&lt;/code>&lt;/h2>
+&lt;p>Below is the overall structure of the &lt;code>KafkaConnector&lt;/code> resource.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;kafka.jikkou.io/v1beta1&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The api version (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;KafkaConnector&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The resource kind (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;string&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The name of the connector (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># Name of the Kafka Connect cluster to create the connector instance in (required).&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">kafka.jikkou.io/connect-cluster&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;string&amp;gt;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">annotations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># Override client properties to connect to Kafka Connect cluster (optional).&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">jikkou.io/config-override&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">| &lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;json&amp;gt;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">connectorClass&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;string&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Name or alias of the class for this connector.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">tasksMax&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;integer&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The maximum number of tasks for the Kafka Connector.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">config&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Configuration properties of the connector.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">&amp;lt;key&amp;gt;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;value&amp;gt;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">state&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;string&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The state the connector should be in. Defaults to running.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>See below for details about all these fields.&lt;/p></description></item><item><title>Iceberg Namespace</title><link>https://www.jikkou.io/docs/providers/apacheiceberg/resources/iceberg-namespace/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/apacheiceberg/resources/iceberg-namespace/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>&lt;code>IcebergNamespace&lt;/code> resources are used to define the namespaces (databases) you want to manage in your
+Iceberg catalog. A namespace groups tables and carries metadata as key/value properties.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="icebergnamespace">&lt;code>IcebergNamespace&lt;/code>&lt;/h2>
+&lt;h3 id="specification">Specification&lt;/h3>
+&lt;p>Here is the &lt;em>resource definition file&lt;/em> for defining an &lt;code>IcebergNamespace&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;iceberg.jikkou.io/v1beta1&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The api version (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;IcebergNamespace&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The resource kind (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;namespace name&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Dot-separated namespace path (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">annotations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">properties&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Namespace-level metadata (optional)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">&amp;lt;key&amp;gt;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;value&amp;gt;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The &lt;code>metadata.name&lt;/code> property is mandatory. Nested namespaces are expressed using dot notation —
+for example, &lt;code>analytics.events&lt;/code> creates a namespace &lt;code>events&lt;/code> inside &lt;code>analytics&lt;/code>.&lt;/p></description></item><item><title>Role Bindings for Confluent Cloud</title><link>https://www.jikkou.io/docs/providers/confluent-cloud/resources/role-binding/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/confluent-cloud/resources/role-binding/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>The &lt;code>RoleBinding&lt;/code> resources are used to manage RBAC role bindings in Confluent Cloud. A
+&lt;code>RoleBinding&lt;/code> resource defines which role is granted to a principal for a specific scope (identified by a CRN pattern).&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="rolebinding">&lt;code>RoleBinding&lt;/code>&lt;/h2>
+&lt;h3 id="specification">Specification&lt;/h3>
+&lt;p>Here is the &lt;em>resource definition file&lt;/em> for defining a &lt;code>RoleBinding&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;iam.confluent.cloud/v1&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The api version (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;RoleBinding&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The resource kind (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">annotations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">principal&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The principal (e.g., User:sa-abc123 or User:u-xyz789)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">roleName&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The role name (e.g., CloudClusterAdmin, DeveloperRead)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">crnPattern&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The Confluent Resource Name pattern (e.g., crn://confluent.cloud/...)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="fields">Fields&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Field&lt;/th>
+ &lt;th>Type&lt;/th>
+ &lt;th>Required&lt;/th>
+ &lt;th>Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;code>principal&lt;/code>&lt;/td>
+ &lt;td>String&lt;/td>
+ &lt;td>Yes&lt;/td>
+ &lt;td>The principal. Pattern: &lt;code>User:&amp;lt;user-id&amp;gt;&lt;/code> or &lt;code>Group:&amp;lt;group-name&amp;gt;&lt;/code>.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>roleName&lt;/code>&lt;/td>
+ &lt;td>String&lt;/td>
+ &lt;td>Yes&lt;/td>
+ &lt;td>The role to bind. See &lt;a href="https://docs.confluent.io/cloud/current/security/access-control/rbac/predefined-rbac-roles.html">Confluent Cloud RBAC roles&lt;/a>.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>crnPattern&lt;/code>&lt;/td>
+ &lt;td>String&lt;/td>
+ &lt;td>Yes&lt;/td>
+ &lt;td>The Confluent Resource Name (CRN) pattern defining the scope of the binding.&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h3 id="common-role-names">Common Role Names&lt;/h3>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Role&lt;/th>
+ &lt;th>Description&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;code>OrganizationAdmin&lt;/code>&lt;/td>
+ &lt;td>Full access to the organization.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>EnvironmentAdmin&lt;/code>&lt;/td>
+ &lt;td>Full access to an environment.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>CloudClusterAdmin&lt;/code>&lt;/td>
+ &lt;td>Full access to a Kafka cluster.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>DeveloperManage&lt;/code>&lt;/td>
+ &lt;td>Manage topics and schemas.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>DeveloperRead&lt;/code>&lt;/td>
+ &lt;td>Read from topics and view schemas.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>DeveloperWrite&lt;/code>&lt;/td>
+ &lt;td>Write to topics and manage schemas.&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>ResourceOwner&lt;/code>&lt;/td>
+ &lt;td>Full access to a specific resource.&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h3 id="example">Example&lt;/h3>
+&lt;p>Here is a simple example that shows how to define a single role binding using
+the &lt;code>RoleBinding&lt;/code> resource type.&lt;/p></description></item><item><title>Schema Registry Subjects</title><link>https://www.jikkou.io/docs/providers/schema-registry/resources/subject/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/schema-registry/resources/subject/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>&lt;em>SchemaRegistrySubject&lt;/em> resources are used to define the subject schemas you want to manage on your SchemaRegistry. A
+SchemaRegistrySubject resource defines the schema, the compatibility level, and the references to be associated with a
+subject version.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="definition-format-of-schemaregistrysubject">Definition Format of &lt;code>SchemaRegistrySubject&lt;/code>&lt;/h2>
+&lt;p>Below is the overall structure of the &lt;code>SchemaRegistrySubject&lt;/code> resource.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;schemaregistry.jikkou.io/v1beta2&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The api version (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;SchemaRegistrySubject&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The resource kind (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;The name of the subject&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">annotations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">schemaRegistry&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">vendor&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;vendor_name&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># (optional) The vendor of the SchemaRegistry, e.g., Confluent, Karapace, etc&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">compatibilityLevel&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;compatibility_level&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># (optional) The schema compatibility level for this subject.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">schemaType: &amp;lt;The schema format&amp;gt; # (required) Accepted values are&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">AVRO, PROTOBUF, JSON&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">schema&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">$ref&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;url or path&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># &lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">references&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Specifies the names of referenced schemas (optional array).&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;string&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The name for the reference.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">subject&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;string&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The subject under which the referenced schema is registered.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;string&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The exact version of the schema under the registered subject.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="metadata">Metadata&lt;/h3>
+&lt;p>The &lt;code>metadata.name&lt;/code> property is mandatory and specifies the name of the &lt;em>Subject&lt;/em>.&lt;/p></description></item><item><title>Kafka Topics</title><link>https://www.jikkou.io/docs/providers/kafka/resources/topics/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/kafka/resources/topics/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>KafkaTopic resources are used to define the topics you want to manage on your Kafka Cluster(s). A KafkaTopic resource
+defines the number of partitions, the replication factor, and the configuration properties to be associated to a topics.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="kafkatopic">&lt;code>KafkaTopic&lt;/code>&lt;/h2>
+&lt;h3 id="specification">Specification&lt;/h3>
+&lt;p>Here is the &lt;em>resource definition file&lt;/em> for defining a &lt;code>KafkaTopic&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;kafka.jikkou.io/v1beta2&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The api version (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;KafkaTopic&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The resource kind (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;The name of the topic&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">annotations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">partitions&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;Number of partitions&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># (optional)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">replicas&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;Number of replicas&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># (optional)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">configs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">&amp;lt;config_key&amp;gt;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;Config Value&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The topic config properties keyed by name to override (optional)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">configMapRefs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The list of ConfigMap to be applied to this topic (optional)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The &lt;code>metadata.name&lt;/code> property is mandatory and specifies the name of the kafka topic.&lt;/p></description></item><item><title>Kafka Users</title><link>https://www.jikkou.io/docs/providers/kafka/resources/users/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/kafka/resources/users/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>This section describes the resource definition format for &lt;code>KafkaUser&lt;/code> entities, which can be used to
+manage SCRAM Users for Apache Kafka.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="definition-format-of-kafkauser">Definition Format of &lt;code>KafkaUser&lt;/code>&lt;/h2>
+&lt;p>Below is the overall structure of the &lt;code>KafkaUser&lt;/code> resource.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">kafka.jikkou.io/v1 &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The api version (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">KafkaUser &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The resource kind (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;string&amp;gt;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">annotations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># force update&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">kafka.jikkou.io/force-password-renewal&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;boolean&amp;gt;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">authentications&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;enum&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># or &lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">password&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;string&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># leave empty to generate secure password&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>See below for details about all these fields.&lt;/p></description></item><item><title>Jikkou Providers</title><link>https://www.jikkou.io/docs/concepts/providers/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/concepts/providers/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>&lt;strong>Providers&lt;/strong> are pluggable modules that supply Jikkou with extensions and resource definitions for a specific
+platform or service (e.g., Apache Kafka, Schema Registry, Aiven).&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="what-is-a-provider">What is a Provider?&lt;/h2>
+&lt;p>A provider is a pluggable module that registers a cohesive set of
+extensions (controllers, collectors, transformations, validations, actions, health
+indicators) and &lt;a href="https://www.jikkou.io/docs/concepts/resource/">resource&lt;/a> types into Jikkou at runtime.&lt;/p>
+&lt;p>Each provider targets a specific platform and is responsible for:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Registering extensions&lt;/strong> such as controllers, collectors, transformations, validations, and actions.&lt;/li>
+&lt;li>&lt;strong>Registering resource types&lt;/strong> that describe the API resources it manages.&lt;/li>
+&lt;li>&lt;strong>Accepting configuration&lt;/strong> specific to its platform (e.g., Kafka bootstrap servers, Schema Registry URL).&lt;/li>
+&lt;/ul>
+&lt;h2 id="configuration">Configuration&lt;/h2>
+&lt;p>Providers are configured in the Jikkou configuration file under the &lt;code>jikkou.provider&lt;/code> namespace. Each provider entry
+has a unique name and includes its type, an &lt;code>enabled&lt;/code> flag, and a &lt;code>config&lt;/code> block.&lt;/p></description></item><item><title>Jikkou Reporters</title><link>https://www.jikkou.io/docs/concepts/reporters/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/concepts/reporters/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>&lt;strong>&lt;em>Reporters&lt;/em>&lt;/strong> can be used to report changes applied by Jikkou to a third-party system.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="configuration">Configuration&lt;/h2>
+&lt;p>Jikkou allows you to configure multiple reporters as follows:&lt;/p>
+&lt;pre tabindex="0">&lt;code class="language-hocon" data-lang="hocon">jikkou {
+ # The list of reporters to execute
+ reporters: [
+ {
+ # Custom name for the reporter
+ name = &amp;#34;&amp;#34;
+ # Simple or fully qualified class name of the transformation extension.
+ type = &amp;#34;&amp;#34;
+ config = {
+ # Configuration properties for this reporter
+ }
+ }
+ ]
+}
+&lt;/code>&lt;/pre>
+
+&lt;div class="alert alert-info" role="alert">
+&lt;h4 class="alert-heading">Tips&lt;/h4>
+
+ The &lt;code>config&lt;/code> object passed to a &lt;em>reporter&lt;/em> will fallback on the top-level &lt;code>jikkou&lt;/code> config.
+This allows you to globally declare some configuration settings.
+
+&lt;/div>
+
+&lt;h3 id="built-in-implementations">Built-in implementations&lt;/h3>
+&lt;p>Jikkou packs with some built-in &lt;code>ChangeReporter&lt;/code> implementations:&lt;/p></description></item><item><title>Jikkou Actions</title><link>https://www.jikkou.io/docs/concepts/actions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/concepts/actions/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>&lt;strong>&lt;em>Actions&lt;/em>&lt;/strong> allow a user to execute a specific and one-shot operation on resources.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="available-actions-cli">Available Actions (CLI)&lt;/h2>
+&lt;p>You can list all the available actions using the Jikkou CLI command:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">jikkou api-extensions list --category&lt;span class="o">=&lt;/span>action &lt;span class="o">[&lt;/span>-kinds &amp;lt;a resource kind to filter returned results&amp;gt;&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="execution-actions-cli">Execution Actions (CLI)&lt;/h2>
+&lt;p>You can execute a specific extension using the Jikkou CLI command:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">jikkou action &amp;lt;ACTION_NAME&amp;gt; execute &lt;span class="o">[&lt;/span>&amp;lt;options&amp;gt;&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description></item><item><title>Jikkou Resource Repositories</title><link>https://www.jikkou.io/docs/concepts/repositories/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/concepts/repositories/</guid><description>&lt;h2 id="overview">Overview&lt;/h2>
+&lt;p>A &lt;strong>Resource Repository&lt;/strong> is an extensible component in Jikkou that enables dynamic loading of resources from various
+sources (e.g., local directories, remote Git repositories) into the execution context.&lt;/p>
+&lt;p>Repositories are typically used to:&lt;/p>
+&lt;ul>
+&lt;li>Load reusable resources across multiple environments or teams&lt;/li>
+&lt;li>Keep transient or computed resources separate from persistent definitions&lt;/li>
+&lt;li>Inject configuration or validation policies dynamically&lt;/li>
+&lt;/ul>
+&lt;p>This feature is particularly useful when you want to define &lt;strong>shareable&lt;/strong> or &lt;strong>transient&lt;/strong> resources such
+as &lt;code>ConfigMap&lt;/code>, &lt;code>ValidatingResourcePolicy&lt;/code>, or other resource types outside the CLI input or local context.&lt;/p></description></item><item><title>Kafka Authorizations</title><link>https://www.jikkou.io/docs/providers/kafka/resources/acls/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/kafka/resources/acls/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>KafkaPrincipalAuthorization resources are used to define Access Control Lists (ACLs) for principals authenticated
+to your Kafka Cluster.&lt;/p>
+
+&lt;/div>
+
+&lt;p>Jikkou can be used to describe all ACL policies that need to be created on Kafka Cluster&lt;/p>
+&lt;h2 id="kafkaprincipalauthorization">&lt;code>KafkaPrincipalAuthorization&lt;/code>&lt;/h2>
+&lt;h3 id="specification">Specification&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;kafka.jikkou.io/v1beta2&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;KafkaPrincipalAuthorization&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;User:Alice&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">roles&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># List of roles to be added to the principal (optional)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">acls&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># List of KafkaPrincipalACL (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">resource&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;The type of the resource&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">pattern&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;The pattern to be used for matching resources&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># (required) &lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">patternType&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;The pattern type&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># (required) &lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;The type of this ACL&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># ALLOW or DENY (required) &lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">operations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Operation that will be allowed or denied (required) &lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">host&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;HOST&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># IP address from which principal will have access or will be denied (optional)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>For more information on how to define authorization and ACLs, see the official Apache Kafka
+documentation: &lt;a href="https://kafka.apache.org/documentation/#security_authz">Security&lt;/a>&lt;/p></description></item><item><title>Quotas for Aiven Apache Kafka®</title><link>https://www.jikkou.io/docs/providers/aiven/resources/kafka-quota/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/aiven/resources/kafka-quota/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>The &lt;code>KafkaQuota&lt;/code> resources are used to manage the Quotas in Aiven for Apache Kafka® service.
+For more details, see &lt;a href="https://docs.aiven.io/docs/products/kafka/concepts/kafka-quotas">https://docs.aiven.io/docs/products/kafka/concepts/kafka-quotas&lt;/a>&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="kafkaquota">&lt;code>KafkaQuota&lt;/code>&lt;/h2>
+&lt;h3 id="specification">Specification&lt;/h3>
+&lt;p>Here is the &lt;em>resource definition file&lt;/em> for defining a &lt;code>KafkaQuota&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;kafka.aiven.io/v1beta1&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The api version (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;KafkaQuota&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The resource kind (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">annotations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">user: &amp;lt;string&amp;gt; # The username: (Optional&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;default&amp;#39;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">if null)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">clientId&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;string&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The client-id&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">consumerByteRate&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;number&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The quota in bytes for restricting data consumption&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">producerByteRate&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;number&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The quota in bytes for restricting data production&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">requestPercentage&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;number&amp;gt;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="example">Example&lt;/h3>
+&lt;p>Here is a simple example that shows how to define a single ACL entry using
+the &lt;code>KafkaQuota&lt;/code> resource type.&lt;/p></description></item><item><title>Iceberg Table</title><link>https://www.jikkou.io/docs/providers/apacheiceberg/resources/iceberg-table/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/apacheiceberg/resources/iceberg-table/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>&lt;code>IcebergTable&lt;/code> resources are used to define the tables you want to manage in your Iceberg catalog.
+An &lt;code>IcebergTable&lt;/code> resource defines the schema, partition layout, sort order, and table-level
+properties. Jikkou performs safe schema evolution — adding, renaming, updating, and dropping
+columns — without data loss.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="icebergtable">&lt;code>IcebergTable&lt;/code>&lt;/h2>
+&lt;h3 id="specification">Specification&lt;/h3>
+&lt;p>Here is the &lt;em>resource definition file&lt;/em> for defining an &lt;code>IcebergTable&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;iceberg.jikkou.io/v1beta1&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The api version (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;IcebergTable&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The resource kind (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;namespace&amp;gt;.&amp;lt;table&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Fully qualified table name (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">annotations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">location&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;storage path&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Override the default table location (optional)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">schema&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">identifierFields&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Primary-key columns for MERGE/UPSERT semantics (optional)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">&amp;lt;column name&amp;gt;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">columns&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Ordered list of columns (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;column name&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Column name (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;type&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Column type (required) — see type reference below&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">required: &amp;lt;true|false&amp;gt; # Whether the column is non-nullable (default&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">false&lt;/span>&lt;span class="l">)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">doc&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;description&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Documentation string (optional)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">default&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;value&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Initial default value, immutable after creation (optional)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">writeDefault&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;value&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Write-default for absent values, updatable (optional)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">previousName&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;old name&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Triggers a safe rename instead of drop+add (optional)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">partitionFields&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Partition layout (optional)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">sourceColumn&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;column&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Source column to partition on (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">transform&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;transform&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Partition transform (required) — see transforms below&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;partition field name&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Custom partition field name (optional)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">sortFields&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Default write sort order (optional)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">column&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;column&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Column name (mutually exclusive with term)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">term&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;expression&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Sort expression e.g. bucket[16](user_id) (mutually exclusive with column)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">direction: &amp;lt;asc|desc&amp;gt; # Sort direction (default&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">asc)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nullOrder: &amp;lt;first|last&amp;gt; # Null placement (default&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">last)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">properties&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Table-level metadata properties (optional)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">&amp;lt;key&amp;gt;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;value&amp;gt;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="column-types">Column Types&lt;/h3>
+&lt;p>Jikkou maps a set of type strings to the underlying Iceberg types:&lt;/p></description></item><item><title>ACL for Aiven Schema Registry</title><link>https://www.jikkou.io/docs/providers/aiven/resources/schema-registry-acl/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/aiven/resources/schema-registry-acl/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>The &lt;code>SchemaRegistryAclEntry&lt;/code> resources are used to manage the Access Control Lists in Aiven for Schema Registry. A
+&lt;code>SchemaRegistryAclEntry&lt;/code> resource defines the permission to be granted to a user for one or more Schema Registry
+Subjects.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="schemaregistryaclentry">&lt;code>SchemaRegistryAclEntry&lt;/code>&lt;/h2>
+&lt;h3 id="specification">Specification&lt;/h3>
+&lt;p>Here is the &lt;em>resource definition file&lt;/em> for defining a &lt;code>SchemaRegistryAclEntry&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nn">---&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;kafka.aiven.io/v1beta1&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The api version (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;SchemaRegistryAclEntry&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The resource kind (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">annotations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">permission: &amp;lt;&amp;gt; # The permission. Accepted values are&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">READ, WRITE&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">username&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The username&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">resource&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The Schema Registry ACL entry resource name pattern&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>NOTE: The resource name pattern should be &lt;code>Config:&lt;/code> or &lt;code>Subject:&amp;lt;subject_name&amp;gt;&lt;/code> where &lt;code>subject_name&lt;/code> must consist of
+alpha-numeric characters, underscores, dashes, dots and glob characters &lt;code>*&lt;/code> and &lt;code>?&lt;/code>.&lt;/p></description></item><item><title>Kafka Quotas</title><link>https://www.jikkou.io/docs/providers/kafka/resources/quotas/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/kafka/resources/quotas/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>KafkaClientQuota resources are used to define the quota limits to be applied on Kafka consumers and producers.
+A KafkaClientQuota resource can be used to apply limit to consumers and/or producers identified by a &lt;code>client-id&lt;/code> or a
+user &lt;code>principal&lt;/code>.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="kafkaclientquota">&lt;code>KafkaClientQuota&lt;/code>&lt;/h2>
+&lt;h3 id="specification">Specification&lt;/h3>
+&lt;p>Here is the &lt;em>resource definition file&lt;/em> for defining a &lt;code>KafkaClientQuota&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;kafka.jikkou.io/v1beta2&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The api version (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;KafkaClientQuota&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The resource kind (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># (optional)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">annotations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;The quota type&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># (required) &lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">entity&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">clientId&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;The id of the client&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># (required depending on the quota type).&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">user&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;The principal of the user&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># (required depending on the quota type).&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">configs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">requestPercentage&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;The quota in percentage (%) of total requests&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># (optional)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">producerByteRate&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;The quota in bytes for restricting data production&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># (optional)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">consumerByteRate&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;The quota in bytes for restricting data consumption&amp;gt;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># (optional)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="quota-types">Quota Types&lt;/h3>
+&lt;p>The list below describes the supported quota types:&lt;/p></description></item><item><title>Kafka Table Records</title><link>https://www.jikkou.io/docs/providers/kafka/resources/ktable-records/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/kafka/resources/ktable-records/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>A KafkaTableRecord resource can be used to produce a key/value record into a given &lt;em>compacted&lt;/em> topic, i.e., a topic
+with &lt;code>cleanup.policy=compact&lt;/code> (a.k.a. &lt;em>KTable&lt;/em>).&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="kafkatablerecord">&lt;code>KafkaTableRecord&lt;/code>&lt;/h2>
+&lt;h3 id="specification">Specification&lt;/h3>
+&lt;p>Here is the &lt;em>resource definition file&lt;/em> for defining a &lt;code>KafkaTableRecord&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;kafka.jikkou.io/v1beta1&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The api version (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;KafkaTableRecord&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The resource kind (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">annotations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;string&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The topic name (required) &lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">headers&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The list of headers&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;string&amp;gt;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">value&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;string&amp;gt;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">key&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The record-key (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type: &amp;lt;string&amp;gt; # The record-key type. Must be one of&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">BINARY, STRING, JSON (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The record-key in JSON serialized form.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">$ref&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;url or path&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Or an url to a local file containing the JSON string value.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">value&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The record-value (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type: &amp;lt;string&amp;gt; # The record-value type. Must be one of&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">BINARY, STRING, JSON (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The record-value in JSON serialized form.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">$ref&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;url or path&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Or an url to a local file containing the JSON string value.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="usage">Usage&lt;/h3>
+&lt;p>The &lt;code>KafkaTableRecord&lt;/code> resource has been designed primarily to manage reference data published and shared via Kafka.
+Therefore, it
+is highly recommended to use this resource only with compacted Kafka topics containing a small amount of data.&lt;/p></description></item><item><title>Iceberg View</title><link>https://www.jikkou.io/docs/providers/apacheiceberg/resources/iceberg-view/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/apacheiceberg/resources/iceberg-view/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>&lt;code>IcebergView&lt;/code> resources are used to define SQL views in your Iceberg catalog.
+A view is a logical definition backed by one or more SQL queries — the output schema
+is inferred by the engine and populated on collect.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="icebergview">&lt;code>IcebergView&lt;/code>&lt;/h2>
+&lt;h3 id="specification">Specification&lt;/h3>
+&lt;p>Here is the &lt;em>resource definition file&lt;/em> for defining an &lt;code>IcebergView&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;iceberg.jikkou.io/v1beta1&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The api version (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;IcebergView&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The resource kind (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;namespace&amp;gt;.&amp;lt;view&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Fully qualified view name (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">annotations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">schema&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Output schema (read-only, inferred by the engine)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">columns&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;column name&amp;gt;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">type&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;type&amp;gt;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">required&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;true|false&amp;gt;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">doc&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;description&amp;gt;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">queries&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># SQL query definitions (at least one required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">sql&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;SQL SELECT statement&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The SQL defining the view (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">dialect&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;dialect&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># SQL dialect e.g. &amp;#39;spark&amp;#39;, &amp;#39;trino&amp;#39;, &amp;#39;presto&amp;#39;, &amp;#39;hive&amp;#39; (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">defaultNamespace&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;namespace&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Default namespace for unqualified table references (optional)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">defaultCatalog&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;catalog&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Default catalog for unqualified table references (optional)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">properties&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># View-level metadata properties (optional)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">&amp;lt;key&amp;gt;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;value&amp;gt;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="examples">Examples&lt;/h3>
+&lt;h4 id="simple-view-with-daily-aggregation">Simple view with daily aggregation&lt;/h4>
+&lt;p>&lt;em>&lt;code>file: iceberg-daily-page-stats.yaml&lt;/code>&lt;/em>&lt;/p></description></item><item><title>Schema for AWS Glue Schema Registry</title><link>https://www.jikkou.io/docs/providers/aws/resources/aws-glue-schema/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/aws/resources/aws-glue-schema/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>&lt;em>AwsGlueSchema&lt;/em> resources are used to define the schemas you want to manage on your AWS Glue Schema registry. A
+AwsGlueSchema resource defines the schema, and the compatibility mode to be associated with a subject definition.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="awsglueschema">&lt;code>AwsGlueSchema&lt;/code>&lt;/h2>
+&lt;h3 id="specification">Specification&lt;/h3>
+&lt;p>Here is the &lt;em>resource definition file&lt;/em> for defining a &lt;code>AwsGlueSchema&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;aws.jikkou.io/v1&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The api version (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;AwsGlueSchema&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The resource kind (required) &lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;The name of the subject&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The schema name (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">glue.aws.amazon.com/registry-name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The registry name (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">annotations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">compatibility&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;compatibility&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The schema compatibility level for this subject (required).&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">dataFormat: &amp;lt;The data format&amp;gt; # Accepted values are&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">AVRO, PROTOBUF, JSON (required).&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">schemaDefinition&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">$ref&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;url or path&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># &lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The &lt;code>metadata.name&lt;/code> property is mandatory and specifies the name of the &lt;em>Subject&lt;/em>.&lt;/p></description></item><item><title>Subject for Aiven Schema Registry</title><link>https://www.jikkou.io/docs/providers/aiven/resources/schema-registry-subject/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/aiven/resources/schema-registry-subject/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>&lt;em>SchemaRegistrySubject&lt;/em> resources are used to define the subject schemas you want to manage on your Schema Registry. A
+SchemaRegistrySubject resource defines the schema, the compatibility level, and the references to be associated with a
+subject version.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="schemaregistrysubject">&lt;code>SchemaRegistrySubject&lt;/code>&lt;/h2>
+&lt;h3 id="specification">Specification&lt;/h3>
+&lt;p>Here is the &lt;em>resource definition file&lt;/em> for defining a &lt;code>SchemaRegistrySubject&lt;/code>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">apiVersion&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;kafka.aiven.io/v1beta1&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The api version (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">kind&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;SchemaRegistrySubject&amp;#34;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The resource kind (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">metadata&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;The name of the subject&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># (required)&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">labels&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">annotations&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="w"> &lt;/span>}&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">spec&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">schemaRegistry&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">vendor&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;Karapace&amp;#39;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># (optional) The vendor of the Schema Registry&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">compatibilityLevel&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;compatibility_level&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># (optional) The schema compatibility level for this subject.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">schemaType: &amp;lt;The schema format&amp;gt; # (required) Accepted values are&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">AVRO, PROTOBUF, JSON&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">schema&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">$ref&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;url or path&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># &lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">references&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># Specifies the names of referenced schemas (optional array).&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The name for the reference.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">subject&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The subject under which the referenced schema is registered.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">&amp;lt;&amp;gt; &lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="c"># The exact version of the schema under the registered subject.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The &lt;code>metadata.name&lt;/code> property is mandatory and specifies the name of the &lt;em>Subject&lt;/em>.&lt;/p></description></item><item><title>Validations</title><link>https://www.jikkou.io/docs/providers/aiven/validations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/aiven/validations/</guid><description>&lt;p>Jikkou ships with the following built-in &lt;em>validations&lt;/em>:&lt;/p>
+&lt;p>&lt;em>No validation&lt;/em>&lt;/p></description></item><item><title>Validations</title><link>https://www.jikkou.io/docs/providers/aws/validations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/aws/validations/</guid><description>&lt;p>Jikkou ships with the following built-in &lt;em>validations&lt;/em>:&lt;/p>
+&lt;p>&lt;em>No validation&lt;/em>&lt;/p></description></item><item><title>Validations</title><link>https://www.jikkou.io/docs/providers/kafka-connect/validations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/kafka-connect/validations/</guid><description>&lt;p>Jikkou ships with the following built-in &lt;em>validations&lt;/em>:&lt;/p></description></item><item><title>Validations</title><link>https://www.jikkou.io/docs/providers/kafka/validations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/kafka/validations/</guid><description>&lt;p>Jikkou ships with the following built-in &lt;em>validations&lt;/em>:&lt;/p>
+&lt;h2 id="topics">Topics&lt;/h2>
+&lt;h3 id="noduplicatetopicsallowedvalidation">&lt;code>NoDuplicateTopicsAllowedValidation&lt;/code>&lt;/h3>
+&lt;p>(&lt;em>auto registered&lt;/em>)&lt;/p>
+&lt;h3 id="topicconfigkeysvalidation">&lt;code>TopicConfigKeysValidation&lt;/code>&lt;/h3>
+&lt;p>(&lt;em>auto registered&lt;/em>)&lt;/p>
+&lt;pre tabindex="0">&lt;code class="language-hocon" data-lang="hocon">type = io.streamthoughts.jikkou.kafka.validation.TopicConfigKeysValidation
+&lt;/code>&lt;/pre>&lt;p>The &lt;code>TopicConfigKeysValidation&lt;/code> allows checking if the specified topic configs are all valid.&lt;/p>
+&lt;h3 id="topicminnumpartitions">&lt;code>TopicMinNumPartitions&lt;/code>&lt;/h3>
+&lt;pre tabindex="0">&lt;code class="language-hocon" data-lang="hocon">type = io.streamthoughts.jikkou.kafka.validation.TopicMinNumPartitionsValidation
+&lt;/code>&lt;/pre>&lt;p>The &lt;code>TopicMinNumPartitions&lt;/code> allows checking if the specified number of partitions for a topic is not less than the minimum required.&lt;/p>
+&lt;p>&lt;strong>Configuration&lt;/strong>&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Name&lt;/th>
+ &lt;th>Type&lt;/th>
+ &lt;th>Description&lt;/th>
+ &lt;th>Default&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;code>topicMinNumPartitions&lt;/code>&lt;/td>
+ &lt;td>Int&lt;/td>
+ &lt;td>Minimum number of partitions allowed&lt;/td>
+ &lt;td>&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table>
+&lt;h3 id="topicmaxnumpartitions">&lt;code>TopicMaxNumPartitions&lt;/code>&lt;/h3>
+&lt;pre tabindex="0">&lt;code class="language-hocon" data-lang="hocon">type = io.streamthoughts.jikkou.kafka.validation.TopicMaxNumPartitions
+&lt;/code>&lt;/pre>&lt;p>The &lt;code>TopicMaxNumPartitions&lt;/code> allows checking if the number of partitions for a topic is not greater than the maximum configured.&lt;/p></description></item><item><title>Validations</title><link>https://www.jikkou.io/docs/providers/schema-registry/validations/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/schema-registry/validations/</guid><description>&lt;p>Jikkou ships with the following built-in &lt;em>validations&lt;/em>:&lt;/p>
+&lt;h2 id="subject">Subject&lt;/h2>
+&lt;h3 id="schemacompatibilityvalidation">&lt;code>SchemaCompatibilityValidation&lt;/code>&lt;/h3>
+&lt;pre tabindex="0">&lt;code class="language-hocon" data-lang="hocon">type = io.streamthoughts.jikkou.schema.registry.validation.SchemaCompatibilityValidation
+&lt;/code>&lt;/pre>&lt;p>The &lt;code>SchemaCompatibilityValidation&lt;/code> allows testing the compatibility of the schema with the latest
+version already registered in the Schema Registry using the provided compatibility-level.&lt;/p>
+&lt;h3 id="avroschemavalidation">&lt;code>AvroSchemaValidation&lt;/code>&lt;/h3>
+&lt;p>The &lt;code>AvroSchemaValidation&lt;/code> allows checking if the specified Avro schema matches some specific avro schema definition
+rules;&lt;/p>
+&lt;pre tabindex="0">&lt;code class="language-hocon" data-lang="hocon">type = io.streamthoughts.jikkou.schema.registry.validation.AvroSchemaValidation
+&lt;/code>&lt;/pre>&lt;p>&lt;strong>Configuration&lt;/strong>&lt;/p>
+&lt;table>
+ &lt;thead>
+ &lt;tr>
+ &lt;th>Name&lt;/th>
+ &lt;th>Type&lt;/th>
+ &lt;th>Description&lt;/th>
+ &lt;th>Default&lt;/th>
+ &lt;/tr>
+ &lt;/thead>
+ &lt;tbody>
+ &lt;tr>
+ &lt;td>&lt;code>fieldsMustHaveDoc&lt;/code>&lt;/td>
+ &lt;td>Boolean&lt;/td>
+ &lt;td>Verify that all record fields have a &lt;code>doc&lt;/code> property&lt;/td>
+ &lt;td>&lt;code>false&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>fieldsMustBeNullable&lt;/code>&lt;/td>
+ &lt;td>Boolean&lt;/td>
+ &lt;td>Verify that all record fields are nullable&lt;/td>
+ &lt;td>&lt;code>false&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;tr>
+ &lt;td>&lt;code>fieldsMustBeOptional&lt;/code>&lt;/td>
+ &lt;td>Boolean&lt;/td>
+ &lt;td>Verify that all record fields are optional&lt;/td>
+ &lt;td>&lt;code>false&lt;/code>&lt;/td>
+ &lt;/tr>
+ &lt;/tbody>
+&lt;/table></description></item></channel></rss>

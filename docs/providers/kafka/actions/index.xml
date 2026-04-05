@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Actions on Jikkou</title><link>https://www.jikkou.io/docs/providers/kafka/actions/</link><description>Recent content in Actions on Jikkou</description><generator>Hugo</generator><language>en</language><atom:link href="https://www.jikkou.io/docs/providers/kafka/actions/index.xml" rel="self" type="application/rss+xml"/><item><title>KafkaConsumerGroupsResetOffsets</title><link>https://www.jikkou.io/docs/providers/kafka/actions/kafkaconsumergroupsresetoffsets/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://www.jikkou.io/docs/providers/kafka/actions/kafkaconsumergroupsresetoffsets/</guid><description>&lt;div class="pageinfo pageinfo-info">
+&lt;p>The &lt;code>KafkaConsumerGroupsResetOffsets&lt;/code> action allows resetting offsets of consumer group.
+It supports one consumer group at the time, and group should be in EMPTY state.&lt;/p>
+
+&lt;/div>
+
+&lt;h2 id="usage-cli">Usage (CLI)&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Usage:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Execute the action.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">jikkou action KafkaConsumerGroupsResetOffsets execute &lt;span class="o">[&lt;/span>-hV&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>--all&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>--dry-run&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>--to-earliest&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>--to-latest&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>--group&lt;span class="o">=&lt;/span>PARAM&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>--logger-level&lt;span class="o">=&lt;/span>&amp;lt;level&amp;gt;&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>-o&lt;span class="o">=&lt;/span>&amp;lt;format&amp;gt;&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>--to-datetime&lt;span class="o">=&lt;/span>PARAM&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>--to-offset&lt;span class="o">=&lt;/span>PARAM&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>--excludes&lt;span class="o">=&lt;/span>PARAM&lt;span class="o">]&lt;/span>...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>--groups&lt;span class="o">=&lt;/span>PARAM&lt;span class="o">]&lt;/span>... &lt;span class="o">[&lt;/span>--includes&lt;span class="o">=&lt;/span>PARAM&lt;span class="o">]&lt;/span>... --topic&lt;span class="o">=&lt;/span>PARAM &lt;span class="o">[&lt;/span>--topic&lt;span class="o">=&lt;/span>PARAM&lt;span class="o">]&lt;/span>...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">DESCRIPTION:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Reset offsets of consumer group. Supports multiple consumer groups, and groups
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">should be in EMPTY state.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">You must choose one of the following reset specifications: to-datetime,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">by-duration, to-earliest, to-latest, to-offset.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">OPTIONS:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --all Specifies to act on all consumer groups.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --dry-run Only show results without executing changes on
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Consumer Groups.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --excludes&lt;span class="o">=&lt;/span>PARAM List of patterns to match the consumer groups that
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> must be excluded from the reset-offset action.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --group&lt;span class="o">=&lt;/span>PARAM The consumer group to act on.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --groups&lt;span class="o">=&lt;/span>PARAM The consumer groups to act on.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -h, --help Show this &lt;span class="nb">help&lt;/span> message and exit.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --includes&lt;span class="o">=&lt;/span>PARAM List of patterns to match the consumer groups that
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> must be included in the reset-offset action.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --logger-level&lt;span class="o">=&lt;/span>&amp;lt;level&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Specify the log level verbosity to be used &lt;span class="k">while&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> running a command.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Valid level values are: TRACE, DEBUG, INFO, WARN,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ERROR.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> For example, &lt;span class="sb">`&lt;/span>--logger-level&lt;span class="o">=&lt;/span>INFO&lt;span class="sb">`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -o, --output&lt;span class="o">=&lt;/span>&amp;lt;format&amp;gt; Prints the output in the specified format. Allowed
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> values: JSON, YAML &lt;span class="o">(&lt;/span>default YAML&lt;span class="o">)&lt;/span>.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --to-datetime&lt;span class="o">=&lt;/span>PARAM Reset offsets to offset from datetime. Format:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;YYYY-MM-DDTHH:mm:SS.sss&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --to-earliest Reset offsets to earliest offset.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --to-latest Reset offsets to latest offset.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --to-offset&lt;span class="o">=&lt;/span>PARAM Reset offsets to a specific offset.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --topic&lt;span class="o">=&lt;/span>PARAM The topic whose partitions must be included in the
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> reset-offset action.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> -V, --version Print version information and exit.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="examples">Examples&lt;/h3>
+&lt;h3 id="reset-single-consumer-group-to-the-earliest-offsets">Reset Single Consumer Group to the earliest offsets&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">jikkou action kafkaconsumergroupresetoffsets execute &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--group my-group &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--topic &lt;span class="nb">test&lt;/span> &lt;span class="se">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="se">&lt;/span>--to-earliest
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>(output)&lt;/strong>&lt;/p></description></item></channel></rss>
